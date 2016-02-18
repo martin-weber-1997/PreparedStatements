@@ -17,6 +17,9 @@ Vergessen Sie nicht auf die Meta-Regeln (Dokumentation, Jar-File, etc.)! Die Tes
 Quelle
 
 [1] Apache Commons CLI; Online: http://commons.apache.org/proper/commons-cli/
+
 [2] Java Tutorial JDBC "Prepared Statements"; Online: https://docs.oracle.com/javase/tutorial/jdbc/basics/prepared.html
+
 [3] Java Tutorial Properties; Online: https://docs.oracle.com/javase/tutorial/essential/environment/properties.html
+
 [4] Overview of Java CLI Libraries; Online: http://stackoverflow.com/questions/1200054/java-library-for-parsing-command-line-parameters
