@@ -7,7 +7,7 @@ package prep_statements;
  * @version 20160223.1
  *
  */
-public class Main {
+public class PSMain {
 
 	/**
 	 * main function that connects the pieces of the application
