@@ -17,12 +17,6 @@ public class PSMain {
 	 */
 	public static void main(String[] args) {
 		CLParser clp = new CLParser(args);
-		/*
-		 * System.out.println("DB: " + clp.getDatabase()); System.out.println(
-		 * "Host: " + clp.getHost()); System.out.println("Port: " +
-		 * clp.getPort()); System.out.println("User: " + clp.getUser());
-		 * System.out.println("Password: " + clp.getPassword());
-		 */
 		DBConnector dbc = new DBConnector(clp.getHost(), clp.getPort(), clp.getDatabase(), clp.getUser(),
 				clp.getPassword());
 		clp.clearPassword();
