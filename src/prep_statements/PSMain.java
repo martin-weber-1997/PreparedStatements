@@ -25,6 +25,7 @@ public class PSMain {
 		 */
 		DBConnector dbc = new DBConnector(clp.getHost(), clp.getPort(), clp.getDatabase(), clp.getUser(),
 				clp.getPassword());
+		clp.clearPassword();
 		dbc.connect();
 	}
 }
