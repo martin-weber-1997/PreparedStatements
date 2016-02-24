@@ -43,7 +43,7 @@ public class PSCreate {
 			create.execute();
 		} catch (SQLException e) {
 			System.err.println("Inserting a new Person failed");
-			e.printStackTrace();
+			System.err.println(e.getMessage());
 		}
 	}
 

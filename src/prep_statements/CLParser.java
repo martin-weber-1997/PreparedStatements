@@ -44,6 +44,7 @@ public class CLParser {
 	 */
 	private void setUpOptions() {
 		opt = new Options();
+		opt.addOption(Option.builder("h").desc("displays this message").longOpt("help").build());
 		opt.addOption(Option.builder("a").argName("data-rows").desc("ammount of rows to use for the CRUD operations")
 				.hasArg().longOpt("amount").numberOfArgs(1).build());
 		opt.addOption(Option.builder("s").desc("show data from select query").longOpt("show").build());
@@ -73,11 +74,11 @@ public class CLParser {
 			prop = new Properties();
 			prop.load(is);
 		} catch (FileNotFoundException e) {
-			System.out.println("Properties File doesn't exist");
-			e.printStackTrace();
+			System.err.println("Properties File doesn't exist");
+			System.err.println(e.getMessage());
 		} catch (IOException e1) {
-			System.out.println("Can't read Property File");
-			e1.printStackTrace();
+			System.err.println("Can't read Property File");
+			System.err.println(e1.getMessage());
 		}
 	}
 
@@ -98,7 +99,7 @@ public class CLParser {
 			printUsage();
 			System.exit(-1);
 		}
-		interrogate();
+		passwordPrompt();
 	}
 
 	/**
@@ -107,14 +108,14 @@ public class CLParser {
 	 */
 	private void printUsage() {
 		System.out.println(
-				"Every option which is not defined with the CLI arguments will be filled with default values from the Property File");
+				"Every option which is not defined with the CLI arguments will be filled with default values from the Property File inside the jar file");
 		formatter.printHelp("preps", opt, true);
 	}
 
 	/**
 	 * Detects if a password prompt is forced and executes the prompt.
 	 */
-	private void interrogate() {
+	private void passwordPrompt() {
 		if (cl.hasOption('W')) {
 			Console console = System.console();
 			/*
@@ -236,6 +237,7 @@ public class CLParser {
 				try {
 					return Integer.parseInt(prop.getProperty("port"));
 				} catch (NumberFormatException nfe) {
+					System.err.println("Provided port is not an Integer.");
 					System.exit(-1);
 					return 0;
 				}
@@ -299,6 +301,17 @@ public class CLParser {
 			} else {
 				return 10000;
 			}
+		}
+	}
+
+	/**
+	 * checks if the application help is called. If this is the case, the
+	 * application will terminate after displaying the message.
+	 */
+	public void help() {
+		if (cl.hasOption('h')) {
+			printUsage();
+			System.exit(0);
 		}
 	}
 
