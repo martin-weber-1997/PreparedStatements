@@ -40,13 +40,14 @@ public class PSMain {
 		a = System.currentTimeMillis();
 		PSRead psr = new PSRead(dbc);
 		try {
-			ResultSet rs=psr.readResult(100);
-			if(clp.showData().equals("yes")){
+			ResultSet rs = psr.readResult(100);
+			if (clp.showData())
 				psr.printResult(rs);
-			}
 		} catch (SQLException e) {
 			System.err.println("Selecting data failed: " + e.getMessage());
 		}
+		b = System.currentTimeMillis();
+		System.out.println("Selecting needed " + (b - a) + " ms.");
 
 		System.out.println("Updating data ...");
 		a = System.currentTimeMillis();
