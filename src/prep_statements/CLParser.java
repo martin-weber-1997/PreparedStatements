@@ -46,6 +46,8 @@ public class CLParser {
 		opt = new Options();
 		opt.addOption(Option.builder("a").argName("data-rows").desc("ammount of rows to use for the CRUD operations")
 				.hasArg().longOpt("amount").numberOfArgs(1).build());
+		opt.addOption(Option.builder("s").argName("show-data").desc("show data from select query")
+				.hasArg().longOpt("show").numberOfArgs(1).build());
 		opt.addOption(Option.builder("d").argName("database-name").desc("database name to connect to").hasArg()
 				.longOpt("database").numberOfArgs(1).build());
 		opt.addOption(Option.builder("H").argName("hostname").desc("database server host").hasArg().longOpt("host")
@@ -241,6 +243,27 @@ public class CLParser {
 		}
 	}
 
+	/**
+	 * Gets the port if specified by the command line, otherwise the standard
+	 * port for PSQL 5432 will be used. If the specified port number is not an
+	 * integer the usage will be printed and the application will be terminated.
+	 * 
+	 * @return the specified port
+	 */
+	public String showData() {
+		if (cl.hasOption("s"))
+			return cl.getOptionValue('s');
+		else {
+			if (!prop.containsKey("show")) {
+				System.err.println("Missing option show");
+				System.exit(-1);
+				return "";
+			} else {
+				return prop.getProperty("show");
+			}
+		}
+	}
+	
 	/**
 	 * Get the amount of specified data rows. If the amount is below 10.000 or
 	 * not specified, it will be set to 10.000.

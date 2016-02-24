@@ -1,5 +1,8 @@
 package prep_statements;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
 /**
  * Main class in order to start the application.
  * 
@@ -32,6 +35,18 @@ public class PSMain {
 		psc.createRandomPerson(amount, 100);
 		b = System.currentTimeMillis();
 		System.out.println("Inserting needed " + (b - a) + " ms.");
+
+		System.out.println("Selecting data ...");
+		a = System.currentTimeMillis();
+		PSRead psr = new PSRead(dbc);
+		try {
+			ResultSet rs=psr.readResult(100);
+			if(clp.showData().equals("yes")){
+				psr.printResult(rs);
+			}
+		} catch (SQLException e) {
+			System.err.println("Selecting data failed: " + e.getMessage());
+		}
 
 		System.out.println("Updating data ...");
 		a = System.currentTimeMillis();
