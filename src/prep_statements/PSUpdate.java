@@ -20,7 +20,7 @@ public class PSUpdate {
 	 *            the database connector
 	 */
 	public PSUpdate(DBConnector con) {
-		update = con.prepareStatement("UPDATE person SET vorname = ? WHERE nummer = ?;)");
+		update = con.prepareStatement("UPDATE person SET vorname = ? WHERE nummer = ?;");
 	}
 
 	/**
