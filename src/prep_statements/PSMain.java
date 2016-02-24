@@ -62,5 +62,7 @@ public class PSMain {
 		psd.deleteAll(amount, 100);
 		b = System.currentTimeMillis();
 		System.out.println("Deleting needed " + (b - a) + " ms.");
+		dbc.closeConnection();
+		System.out.println("Bye!");
 	}
 }

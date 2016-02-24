@@ -51,7 +51,6 @@ public class DBConnector {
 		} catch (SQLException e) {
 			System.err.println("Connection failed. Please check the provided connection data.");
 			System.err.println(e.getMessage());
-			closeConnection();
 			System.exit(-1);
 		}
 	}
@@ -80,7 +79,7 @@ public class DBConnector {
 	 * Closes the connection. If an error occurs, a message will be displayed
 	 * and the application will be terminated.
 	 */
-	private void closeConnection() {
+	public void closeConnection() {
 		try {
 			con.close();
 		} catch (SQLException e) {
