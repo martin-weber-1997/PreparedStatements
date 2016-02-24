@@ -69,7 +69,6 @@ public class CLParser {
 	 * IOException occurs, a error message will be printed out.
 	 */
 	private void loadProperties() {
-
 		try (InputStream is = CLParser.class.getResourceAsStream("statements.properties")) {
 			prop = new Properties();
 			prop.load(is);

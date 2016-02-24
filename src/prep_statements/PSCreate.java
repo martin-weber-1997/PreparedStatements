@@ -15,10 +15,10 @@ public class PSCreate {
 	private PreparedStatement create;
 
 	/**
-	 * constructor
+	 * constructor for the prepared statement for a create operation
 	 * 
 	 * @param con
-	 *            the database connector
+	 *            the DB connection needed for the prepared statement
 	 */
 	public PSCreate(DBConnector con) {
 		create = con.prepareStatement("INSERT INTO person VALUES(?,?,?)");
@@ -60,6 +60,7 @@ public class PSCreate {
 		for (int i = start; i < count + start; i++) {
 			/*
 			 * Auf Stackoverflow gefunden generiert random ID
+			 * http://stackoverflow.com/questions/2863852/how-to-generate-a-random-string-in-java
 			 */
 			String s = UUID.randomUUID().toString().substring(0, 20);
 			insertPerson(i, s, s);
