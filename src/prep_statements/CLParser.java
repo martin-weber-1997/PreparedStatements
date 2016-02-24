@@ -61,7 +61,7 @@ public class CLParser {
 	}
 
 	private void loadProperties() {
-		try (FileReader reader = new FileReader("statements.properties")) {
+		try (FileReader reader = new FileReader("src/statements.properties")) {
 			prop = new Properties();
 			prop.load(reader);
 		} catch (FileNotFoundException e) {
