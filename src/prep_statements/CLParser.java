@@ -17,8 +17,8 @@ import org.apache.commons.cli.ParseException;
 /**
  * parses command line options using Apache Commons CLI 1.31
  * 
- * @author Daniel May
- * @version 20160223.1
+ * @author Daniel May, Martin Weber
+ * @version 20160224.1
  *
  */
 public class CLParser {
@@ -236,7 +236,6 @@ public class CLParser {
 		}
 
 	}
-
 
 	/**
 	 * Sets the password field to null.

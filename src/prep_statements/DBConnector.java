@@ -40,6 +40,7 @@ public class DBConnector {
 		ds.setPassword(password);
 		ds.setPortNumber(port);
 	}
+
 	/**
 	 * Connects to the database. If an error occurs the connection will be
 	 * closed.
