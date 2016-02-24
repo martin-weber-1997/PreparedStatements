@@ -47,7 +47,7 @@ public class PSUpdate {
 	 * @param number
 	 *            ID to identify the person
 	 */
-	public void updatePerson(String name, int number) {
+	private void updatePerson(String name, int number) {
 		try {
 			update.setString(1, name);
 			update.setInt(2, number);

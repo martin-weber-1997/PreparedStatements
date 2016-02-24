@@ -18,7 +18,7 @@ import org.apache.commons.cli.ParseException;
  * parses command line options using Apache Commons CLI 1.31
  * 
  * @author Daniel May, Martin Weber
- * @version 20160224.1
+ * @version 20160224.2
  *
  */
 public class CLParser {
@@ -44,6 +44,8 @@ public class CLParser {
 	 */
 	private void setUpOptions() {
 		opt = new Options();
+		opt.addOption(Option.builder("a").argName("data-rows").desc("ammount of rows to use for the CRUD operations")
+				.hasArg().longOpt("amount").numberOfArgs(1).build());
 		opt.addOption(Option.builder("d").argName("database-name").desc("database name to connect to").hasArg()
 				.longOpt("database").numberOfArgs(1).build());
 		opt.addOption(Option.builder("H").argName("hostname").desc("database server host").hasArg().longOpt("host")
@@ -60,6 +62,10 @@ public class CLParser {
 		opt.addOptionGroup(pwGroup);
 	}
 
+	/**
+	 * Loads the properties from a file. If the File is not found or a
+	 * IOException occurs, a error message will be printed out.
+	 */
 	private void loadProperties() {
 		try (FileReader reader = new FileReader("src/statements.properties")) {
 			prop = new Properties();
@@ -71,7 +77,6 @@ public class CLParser {
 			System.out.println("Can't read Property File");
 			e1.printStackTrace();
 		}
-
 	}
 
 	/**
@@ -234,7 +239,42 @@ public class CLParser {
 				}
 			}
 		}
+	}
 
+	/**
+	 * get the amount of specified data rows
+	 * 
+	 * @return the amount of data rows
+	 */
+	public int getAmount() {
+		if (cl.hasOption("a")) {
+			try {
+				int tmp = Integer.parseInt(cl.getOptionValue('a'));
+				if (tmp < 10000)
+					return 10000;
+				else
+					return tmp;
+			} catch (NumberFormatException nfe) {
+				printUsage();
+				System.exit(-1);
+				return 0;
+			}
+		} else {
+			if (prop.containsKey("amount")) {
+				try {
+					int tmp = Integer.parseInt(prop.getProperty("amount"));
+					if (tmp < 10000)
+						return 10000;
+					else
+						return tmp;
+				} catch (NumberFormatException nfe) {
+					printUsage();
+					System.exit(-1);
+					return 0;
+				}
+			}
+		}
+		return 0;
 	}
 
 	/**

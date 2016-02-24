@@ -45,7 +45,7 @@ public class PSDelete {
 	 * @param number
 	 *            ID to identify the person
 	 */
-	public void deletePerson(int number) {
+	private void deletePerson(int number) {
 		try {
 			delete.setInt(1, number);
 			delete.execute();
