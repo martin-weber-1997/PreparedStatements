@@ -30,7 +30,7 @@ public class PSUpdate {
 	 * @param count
 	 *            how much Persons
 	 * @param start
-	 *            where starts the ID?
+	 *            where does the the ID range start?
 	 */
 	public void updateAll(int count, int start) {
 		for (int i = start; i < count + start; i++) {
