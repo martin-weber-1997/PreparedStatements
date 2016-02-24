@@ -26,12 +26,20 @@ public class PSRead {
 	}
 
 	public ResultSet readResult(int border) throws SQLException {
+		read.setInt(1, border);
+		return read.executeQuery();
+	}
+
+	public void printResult(ResultSet rs) {
 		try {
-			read.setInt(1, border);
-			return read.executeQuery();
+			while (rs.next()) {
+				int number = rs.getInt(1);
+				String name = rs.getString(2);
+				String surname = rs.getString(3);
+				System.out.println(number + " " + name + " " + surname);
+			}
 		} catch (SQLException e) {
-			System.err.println("Execution of Query failed" + e.getMessage());
-			throw new SQLException();
+			System.err.println("printing the ResultSet Failed");
 		}
 	}
 }
