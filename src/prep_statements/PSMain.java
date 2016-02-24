@@ -41,7 +41,7 @@ public class PSMain {
 		PSRead psr = new PSRead(dbc);
 		try {
 			ResultSet rs=psr.readResult(100);
-			if(clp.showData().equals("yes")){
+			if(clp.showData().equals("true")){
 				psr.printResult(rs);
 			}
 		} catch (SQLException e) {
