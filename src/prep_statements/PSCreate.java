@@ -12,10 +12,10 @@ import java.util.UUID;
  * @version 24.02.2015
  *
  */
-public class CreateStatement {
+public class PSCreate {
 	private PreparedStatement create;
 
-	public CreateStatement(DBConnector con) {
+	public PSCreate(DBConnector con) {
 		create = con.prepareStatement("INSERT INTO person VALUES(?,?,?)");
 	}
 

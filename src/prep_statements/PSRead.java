@@ -12,7 +12,7 @@ import java.sql.SQLException;
  * @version 24.02.2015
  *
  */
-public class ReadStatement {
+public class PSRead {
 	
 	private PreparedStatement read;
 	
@@ -20,7 +20,7 @@ public class ReadStatement {
 	 * Constructor for the Prepared Statement 
 	 * @param con the DB connection needed for the prepared Statement
 	 */
-	public ReadStatement(DBConnector con){
+	public PSRead(DBConnector con){
 		read=con.prepareStatement("SELECT * FROM person WHERE nummer > ?");
 	}
 	
