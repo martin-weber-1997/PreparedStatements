@@ -242,7 +242,8 @@ public class CLParser {
 	}
 
 	/**
-	 * get the amount of specified data rows
+	 * Get the amount of specified data rows. If the amount is below 10.000 or
+	 * not specified, it will be set to 10.000.
 	 * 
 	 * @return the amount of data rows
 	 */
@@ -272,9 +273,10 @@ public class CLParser {
 					System.exit(-1);
 					return 0;
 				}
+			} else {
+				return 10000;
 			}
 		}
-		return 0;
 	}
 
 	/**
