@@ -23,9 +23,9 @@ import org.apache.commons.cli.ParseException;
  */
 public class CLParser {
 
-	private static CommandLine cl;
-	private static Options opt;
-	private static HelpFormatter formatter;
+	private CommandLine cl;
+	private Options opt;
+	private HelpFormatter formatter;
 	private String password;
 	private Properties prop;
 
@@ -237,4 +237,11 @@ public class CLParser {
 
 	}
 
+
+	/**
+	 * Sets the password field to null.
+	 */
+	public void clearPassword() {
+		password = null;
+	}
 }
