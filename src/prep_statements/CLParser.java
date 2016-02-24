@@ -4,6 +4,7 @@ import java.io.Console;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.Properties;
 
 import org.apache.commons.cli.CommandLine;
@@ -68,9 +69,10 @@ public class CLParser {
 	 * IOException occurs, a error message will be printed out.
 	 */
 	private void loadProperties() {
-		try (FileReader reader = new FileReader("src/statements.properties")) {
+		
+		try (InputStream is = CLParser.class.getResourceAsStream("statements.properties")) {
 			prop = new Properties();
-			prop.load(reader);
+			prop.load(is);
 		} catch (FileNotFoundException e) {
 			System.out.println("Properties File doesn't exist");
 			e.printStackTrace();
