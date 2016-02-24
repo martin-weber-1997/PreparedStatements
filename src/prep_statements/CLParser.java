@@ -1,6 +1,10 @@
 package prep_statements;
 
 import java.io.Console;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.Properties;
 
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.DefaultParser;
@@ -23,11 +27,13 @@ public class CLParser {
 	private static Options opt;
 	private static HelpFormatter formatter;
 	private String password;
+	private Properties prop;
 
 	/**
 	 * constructor
 	 */
 	public CLParser(String[] args) {
+		loadProperties();
 		setUpOptions();
 		formatter = new HelpFormatter();
 		parseOptions(args);
@@ -39,19 +45,33 @@ public class CLParser {
 	private void setUpOptions() {
 		opt = new Options();
 		opt.addOption(Option.builder("d").argName("database-name").desc("database name to connect to").hasArg()
-				.longOpt("database").numberOfArgs(1).required().build());
+				.longOpt("database").numberOfArgs(1).build());
 		opt.addOption(Option.builder("H").argName("hostname").desc("database server host").hasArg().longOpt("host")
-				.numberOfArgs(1).required().build());
+				.numberOfArgs(1).build());
 		opt.addOption(Option.builder("p").argName("port").desc("database server port").hasArg().longOpt("port")
 				.numberOfArgs(1).build());
 		opt.addOption(Option.builder("u").argName("username").desc("database user name").hasArg().longOpt("user")
-				.numberOfArgs(1).required().build());
+				.numberOfArgs(1).build());
+
 		OptionGroup pwGroup = new OptionGroup();
 		pwGroup.addOption(Option.builder("w").argName("password").desc("pass password as command line argument")
 				.hasArg().longOpt("password").numberOfArgs(1).build());
 		pwGroup.addOption(Option.builder("W").desc("force password prompt").longOpt("password-prompt").build());
-		pwGroup.setRequired(true);
 		opt.addOptionGroup(pwGroup);
+	}
+
+	private void loadProperties() {
+		try (FileReader reader = new FileReader("statements.properties")) {
+			prop = new Properties();
+			prop.load(reader);
+		} catch (FileNotFoundException e) {
+			System.out.println("Properties File doesn't exist");
+			e.printStackTrace();
+		} catch (IOException e1) {
+			System.out.println("Can't read Property File");
+			e1.printStackTrace();
+		}
+
 	}
 
 	/**
@@ -69,7 +89,7 @@ public class CLParser {
 		} catch (ParseException exp) {
 			System.err.println("Parsing failed.  Reason: " + exp.getMessage());
 			printUsage();
-			System.exit(0);
+			System.exit(-1);
 		}
 		interrogate();
 	}
@@ -79,6 +99,8 @@ public class CLParser {
 	 * usage.
 	 */
 	private void printUsage() {
+		System.out.println(
+				"Every option which is not defined with the CLI arguments will be filled with default values from the Property File");
 		formatter.printHelp("preps", opt, true);
 	}
 
@@ -95,7 +117,7 @@ public class CLParser {
 			 */
 			if (console == null) {
 				System.out.println("Couldn't get console instance!");
-				System.exit(0);
+				System.exit(-1);
 			}
 			/*
 			 * %n is a line separator; %s is for unicode characters
@@ -110,7 +132,18 @@ public class CLParser {
 	 * @return the specified database
 	 */
 	public String getDatabase() {
-		return cl.getOptionValue('d');
+		if (cl.hasOption("d"))
+			return cl.getOptionValue('d');
+		else {
+			if (!prop.containsKey("database")) {
+				System.err.println("Missing option database");
+				System.exit(-1);
+				return "";
+			} else {
+				return prop.getProperty("database");
+			}
+		}
+
 	}
 
 	/**
@@ -119,7 +152,17 @@ public class CLParser {
 	 * @return the specified hostname
 	 */
 	public String getHost() {
-		return cl.getOptionValue('H');
+		if (cl.hasOption("H"))
+			return cl.getOptionValue('H');
+		else {
+			if (!prop.containsKey("host")) {
+				System.err.println("Missing option host");
+				System.exit(-1);
+				return "";
+			} else {
+				return prop.getProperty("host");
+			}
+		}
 	}
 
 	/**
@@ -128,7 +171,17 @@ public class CLParser {
 	 * @return the specified username
 	 */
 	public String getUser() {
-		return cl.getOptionValue('u');
+		if (cl.hasOption("u"))
+			return cl.getOptionValue('u');
+		else {
+			if (!prop.containsKey("user")) {
+				System.err.println("Missing option user");
+				System.exit(-1);
+				return "";
+			} else {
+				return prop.getProperty("user");
+			}
+		}
 	}
 
 	/**
@@ -140,8 +193,17 @@ public class CLParser {
 	public String getPassword() {
 		if (cl.hasOption('w'))
 			return cl.getOptionValue('w');
-		else
+		else if (cl.hasOption("W"))
 			return password;
+		else {
+			if (!prop.containsKey("password")) {
+				System.err.println("Missing option password");
+				System.exit(-1);
+				return "";
+			} else {
+				return prop.getProperty("password");
+			}
+		}
 	}
 
 	/**
@@ -152,12 +214,27 @@ public class CLParser {
 	 * @return the specified port
 	 */
 	public int getPort() {
-		try {
-			return Integer.parseInt(cl.getOptionValue('p', "5432"));
-		} catch (NumberFormatException nfe) {
-			printUsage();
-			System.exit(0);
+		if (cl.hasOption("p")) {
+			try {
+				return Integer.parseInt(cl.getOptionValue('p'));
+			} catch (NumberFormatException nfe) {
+				printUsage();
+				System.exit(-1);
+				return 0;
+			}
+		} else {
+			if (!prop.containsKey("port")) {
+				return 5432;
+			} else {
+				try {
+					return Integer.parseInt(prop.getProperty("port"));
+				} catch (NumberFormatException nfe) {
+					System.exit(-1);
+					return 0;
+				}
+			}
 		}
-		return 0;
+
 	}
+
 }

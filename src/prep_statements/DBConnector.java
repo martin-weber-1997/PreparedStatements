@@ -41,7 +41,6 @@ public class DBConnector {
 		ds.setPassword(password);
 		ds.setPortNumber(port);
 	}
-
 	/**
 	 * connects to the database
 	 */
