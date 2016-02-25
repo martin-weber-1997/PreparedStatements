@@ -20,7 +20,6 @@ public class PSMain {
 	 */
 	public static void main(String[] args) {
 		CLParser clp = new CLParser(args);
-		clp.help();
 		DBConnector dbc = new DBConnector(clp.getHost(), clp.getPort(), clp.getDatabase(), clp.getUser(),
 				clp.getPassword());
 		clp.clearPassword();

@@ -4,7 +4,6 @@ import java.io.Console;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
-import java.io.InputStream;
 import java.util.Properties;
 
 import org.apache.commons.cli.CommandLine;
@@ -34,10 +33,11 @@ public class CLParser {
 	 * constructor
 	 */
 	public CLParser(String[] args) {
-		loadProperties();
 		setUpOptions();
 		formatter = new HelpFormatter();
 		parseOptions(args);
+		help();
+		loadProperties();
 	}
 
 	/**
@@ -147,7 +147,7 @@ public class CLParser {
 		if (cl.hasOption("d"))
 			return cl.getOptionValue('d');
 		else {
-			if (!prop.containsKey("database")) {
+			if (prop == null || !prop.containsKey("database")) {
 				System.err.println("Missing option database");
 				System.exit(-1);
 				return "";
@@ -167,7 +167,7 @@ public class CLParser {
 		if (cl.hasOption("H"))
 			return cl.getOptionValue('H');
 		else {
-			if (!prop.containsKey("host")) {
+			if (prop == null || !prop.containsKey("host")) {
 				System.err.println("Missing option host");
 				System.exit(-1);
 				return "";
@@ -186,7 +186,7 @@ public class CLParser {
 		if (cl.hasOption("u"))
 			return cl.getOptionValue('u');
 		else {
-			if (!prop.containsKey("user")) {
+			if (prop == null || !prop.containsKey("user")) {
 				System.err.println("Missing option user");
 				System.exit(-1);
 				return "";
@@ -208,7 +208,7 @@ public class CLParser {
 		else if (cl.hasOption("W"))
 			return password;
 		else {
-			if (!prop.containsKey("password")) {
+			if (prop == null || !prop.containsKey("password")) {
 				System.err.println("Missing option password");
 				System.exit(-1);
 				return "";
@@ -235,7 +235,7 @@ public class CLParser {
 				return 0;
 			}
 		} else {
-			if (!prop.containsKey("port")) {
+			if (prop == null || !prop.containsKey("port")) {
 				return 5432;
 			} else {
 				try {
@@ -252,7 +252,7 @@ public class CLParser {
 	/**
 	 * Gets if the data from the select query should be displayed or not. If the
 	 * value in the property file is not true or True this method will return
-	 * false.
+	 * false. If nothing is specified the result won't be printed out.
 	 * 
 	 * @return if the data should be displayed
 	 */
@@ -260,9 +260,7 @@ public class CLParser {
 		if (cl.hasOption("s"))
 			return true;
 		else {
-			if (!prop.containsKey("show")) {
-				System.err.println("Missing option show");
-				System.exit(-1);
+			if (prop == null || !prop.containsKey("show")) {
 				return false;
 			} else {
 				return Boolean.parseBoolean(prop.getProperty("show"));
@@ -290,7 +288,7 @@ public class CLParser {
 				return 0;
 			}
 		} else {
-			if (prop.containsKey("amount")) {
+			if (prop != null && prop.containsKey("amount")) {
 				try {
 					int tmp = Integer.parseInt(prop.getProperty("amount"));
 					if (tmp < 10000)
@@ -312,7 +310,7 @@ public class CLParser {
 	 * checks if the application help is called. If this is the case, the
 	 * application will terminate after displaying the message.
 	 */
-	public void help() {
+	private void help() {
 		if (cl.hasOption('h')) {
 			printUsage();
 			System.exit(0);
