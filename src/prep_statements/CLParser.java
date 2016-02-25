@@ -47,6 +47,8 @@ public class CLParser {
 		opt.addOption(Option.builder("h").desc("displays this message").longOpt("help").build());
 		opt.addOption(Option.builder("a").argName("data-rows").desc("ammount of rows to use for the CRUD operations")
 				.hasArg().longOpt("amount").numberOfArgs(1).build());
+		opt.addOption(Option.builder("f").argName("path-to-file").desc("the filepath of the property file").hasArg()
+				.longOpt("file").numberOfArgs(1).build());
 		opt.addOption(Option.builder("s").desc("show data from select query").longOpt("show").build());
 		opt.addOption(Option.builder("d").argName("database-name").desc("database name to connect to").hasArg()
 				.longOpt("database").numberOfArgs(1).build());
@@ -69,16 +71,17 @@ public class CLParser {
 	 * IOException occurs, a error message will be printed out.
 	 */
 	private void loadProperties() {
-
-		try (InputStream is = CLParser.class.getResourceAsStream("statements.properties")) {
-			prop = new Properties();
-			prop.load(is);
-		} catch (FileNotFoundException e) {
-			System.err.println("Properties File doesn't exist");
-			System.err.println(e.getMessage());
-		} catch (IOException e1) {
-			System.err.println("Can't read Property File");
-			System.err.println(e1.getMessage());
+		if (cl.hasOption('f')) {
+			try (InputStream is = CLParser.class.getResourceAsStream("statements.properties")) {
+				prop = new Properties();
+				prop.load(is);
+			} catch (FileNotFoundException e) {
+				System.err.println("Properties File doesn't exist");
+				System.err.println(e.getMessage());
+			} catch (IOException e1) {
+				System.err.println("Can't read Property File");
+				System.err.println(e1.getMessage());
+			}
 		}
 	}
 
