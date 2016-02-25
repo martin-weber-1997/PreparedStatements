@@ -35,7 +35,7 @@ public class PSCreate {
 	 * @param surname
 	 *            the surname of the person
 	 */
-	public void insertPerson(int number, String name, String surname) {
+	private void insertPerson(int number, String name, String surname) {
 		try {
 			create.setInt(1, number);
 			create.setString(2, name);
@@ -49,7 +49,7 @@ public class PSCreate {
 
 	/**
 	 * Method to create a defined amount of random inserts with the insertPerson
-	 * Method The generated inserts are filled with useless data
+	 * Method. The generated inserts are filled with useless data.
 	 * 
 	 * @param count
 	 *            number of inserts
@@ -60,7 +60,8 @@ public class PSCreate {
 		for (int i = start; i < count + start; i++) {
 			/*
 			 * Auf Stackoverflow gefunden generiert random ID
-			 * http://stackoverflow.com/questions/2863852/how-to-generate-a-random-string-in-java
+			 * http://stackoverflow.com/questions/2863852/how-to-generate-a-
+			 * random-string-in-java
 			 */
 			String s = UUID.randomUUID().toString().substring(0, 20);
 			insertPerson(i, s, s);

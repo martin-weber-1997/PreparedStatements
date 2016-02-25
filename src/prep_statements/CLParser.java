@@ -15,10 +15,11 @@ import org.apache.commons.cli.Options;
 import org.apache.commons.cli.ParseException;
 
 /**
- * parses command line options using Apache Commons CLI 1.31
+ * Parses command line options using Apache Commons CLI 1.31 or uses the
+ * specified property file.
  * 
  * @author Daniel May, Martin Weber
- * @version 20160224.2
+ * @version 20160225.1
  *
  */
 public class CLParser {
@@ -30,7 +31,10 @@ public class CLParser {
 	private Properties prop;
 
 	/**
-	 * constructor
+	 * Constructor
+	 * 
+	 * @param args
+	 *            arguments passed by the command line
 	 */
 	public CLParser(String[] args) {
 		setUpOptions();
@@ -46,8 +50,9 @@ public class CLParser {
 	private void setUpOptions() {
 		opt = new Options();
 		opt.addOption(Option.builder("h").desc("displays this message").longOpt("help").build());
-		opt.addOption(Option.builder("a").argName("data-rows").desc("ammount of rows to use for the CRUD operations")
-				.hasArg().longOpt("amount").numberOfArgs(1).build());
+		opt.addOption(Option.builder("a").argName("data-rows")
+				.desc("ammount of rows to use for the CRUD operations; min. 10.000").hasArg().longOpt("amount")
+				.numberOfArgs(1).build());
 		opt.addOption(Option.builder("f").argName("path-to-file").desc("the filepath of the property file").hasArg()
 				.longOpt("file").numberOfArgs(1).build());
 		opt.addOption(Option.builder("s").desc("show data from select query").longOpt("show").build());
@@ -69,7 +74,7 @@ public class CLParser {
 
 	/**
 	 * Loads the properties from a file. If the File is not found or a
-	 * IOException occurs, a error message will be printed out.
+	 * IOException occurs, an error message will be printed out.
 	 */
 	private void loadProperties() {
 		if (cl.hasOption("f")) {
@@ -92,7 +97,7 @@ public class CLParser {
 	 * in that case.
 	 * 
 	 * @param args
-	 *            command line anrguments
+	 *            command line arguments
 	 */
 	private void parseOptions(String[] args) {
 		DefaultParser parser = new DefaultParser();
@@ -112,8 +117,8 @@ public class CLParser {
 	 */
 	private void printUsage() {
 		System.out.println(
-				"Every option which is not defined with the CLI arguments will be filled with default values from the Property File inside the jar file");
-		formatter.printHelp("preps", opt, true);
+				"Every option which is not defined with the CLI arguments will be filled with the values from the specified property file.");
+		formatter.printHelp("<filename>.jar", opt, true);
 	}
 
 	/**
@@ -139,7 +144,8 @@ public class CLParser {
 	}
 
 	/**
-	 * Gets the database specified by the command line.
+	 * Gets the database specified by the command line or the property file. If
+	 * nothing is specified, an error message will be printed out.
 	 * 
 	 * @return the specified database
 	 */
@@ -155,11 +161,11 @@ public class CLParser {
 				return prop.getProperty("database");
 			}
 		}
-
 	}
 
 	/**
-	 * Gets the hostname specified by the command line.
+	 * Gets the hostname specified by the command line or the property file. If
+	 * nothing is specified, an error message will be printed out.
 	 * 
 	 * @return the specified hostname
 	 */
@@ -178,7 +184,8 @@ public class CLParser {
 	}
 
 	/**
-	 * Gets the username specified by the command line.
+	 * Gets the username specified by the command line or the property file. If
+	 * nothing is specified, an error message will be printed out.
 	 * 
 	 * @return the specified username
 	 */
@@ -198,7 +205,8 @@ public class CLParser {
 
 	/**
 	 * Detects if the password was specified as argument or entered via password
-	 * prompt and returns it.
+	 * prompt and returns it. If no password is provided, an error message will
+	 * be printed out.
 	 * 
 	 * @return the specified password
 	 */
@@ -219,9 +227,10 @@ public class CLParser {
 	}
 
 	/**
-	 * Gets the port if specified by the command line, otherwise the standard
-	 * port for PSQL 5432 will be used. If the specified port number is not an
-	 * integer the usage will be printed and the application will be terminated.
+	 * Gets the port if specified by the command line or the property file,
+	 * otherwise the standard port for PSQL 5432 will be used. If the specified
+	 * port number is not an integer the usage will be printed and the
+	 * application will be terminated.
 	 * 
 	 * @return the specified port
 	 */
@@ -250,9 +259,10 @@ public class CLParser {
 	}
 
 	/**
-	 * Gets if the data from the select query should be displayed or not. If the
-	 * value in the property file is not true or True this method will return
-	 * false. If nothing is specified the result won't be printed out.
+	 * Gets the command line switch if the data from the select query should be
+	 * displayed or not. If the value in the property file is not true or True
+	 * this method will return false. If nothing is specified the result won't
+	 * be printed out.
 	 * 
 	 * @return if the data should be displayed
 	 */
@@ -270,7 +280,8 @@ public class CLParser {
 
 	/**
 	 * Get the amount of specified data rows. If the amount is below 10.000 or
-	 * not specified, it will be set to 10.000.
+	 * not specified, it will be set to 10.000. If the argument is specified,
+	 * but it is not an integer, the application will be terminated.
 	 * 
 	 * @return the amount of data rows
 	 */
@@ -307,7 +318,7 @@ public class CLParser {
 	}
 
 	/**
-	 * checks if the application help is called. If this is the case, the
+	 * Checks if the application help is called. If this is the case, the
 	 * application will terminate after displaying the message.
 	 */
 	private void help() {

@@ -7,7 +7,7 @@ import java.sql.SQLException;
  * Main class in order to start the application.
  * 
  * @author Daniel May
- * @version 20160223.1
+ * @version 20160225.1
  *
  */
 public class PSMain {

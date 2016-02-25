@@ -43,7 +43,9 @@ public class PSRead {
 
 	/**
 	 * prints the Values of the ResultSet given in the Parameter to Sysout
-	 * @param rs the ResultSet
+	 * 
+	 * @param rs
+	 *            the ResultSet
 	 */
 	public void printResult(ResultSet rs) {
 		try {

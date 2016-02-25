@@ -42,8 +42,8 @@ public class DBConnector {
 	}
 
 	/**
-	 * Connects to the database. If an error occurs the connection will be
-	 * closed.
+	 * Connects to the database. If an error occurs the application will be
+	 * terminated.
 	 */
 	public void connect() {
 		try {
