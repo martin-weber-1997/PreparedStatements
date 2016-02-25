@@ -48,6 +48,8 @@ public class CLParser {
 		opt.addOption(Option.builder("h").desc("displays this message").longOpt("help").build());
 		opt.addOption(Option.builder("a").argName("data-rows").desc("ammount of rows to use for the CRUD operations")
 				.hasArg().longOpt("amount").numberOfArgs(1).build());
+		opt.addOption(Option.builder("f").argName("path-to-file").desc("the filepath of the property file").hasArg()
+				.longOpt("file").numberOfArgs(1).build());
 		opt.addOption(Option.builder("s").desc("show data from select query").longOpt("show").build());
 		opt.addOption(Option.builder("d").argName("database-name").desc("database name to connect to").hasArg()
 				.longOpt("database").numberOfArgs(1).build());
