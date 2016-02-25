@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <meta charset='utf-8'>
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <meta name="description" content="Prepared Statements : Prepared Statements INSY Gruppenarbeit">
+
+    <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/stylesheet.css">
+
+    <title>Prepared Statements</title>
+  </head>
+
+  <body>
+
+    <!-- HEADER -->
+    <div id="header_wrap" class="outer">
+        <header class="inner">
+          <a id="forkme_banner" href="https://github.com/mweber-tgm/PreparedStatements">View on GitHub</a>
+
+          <h1 id="project_title">Prepared Statements</h1>
+          <h2 id="project_tagline">Prepared Statements INSY Gruppenarbeit</h2>
+
+            <section id="downloads">
+              <a class="zip_download_link" href="https://github.com/mweber-tgm/PreparedStatements/zipball/master">Download this project as a .zip file</a>
+              <a class="tar_download_link" href="https://github.com/mweber-tgm/PreparedStatements/tarball/master">Download this project as a tar.gz file</a>
+            </section>
+        </header>
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <div id="main_content_wrap" class="outer">
+      <section id="main_content" class="inner">
+        <h1>
+<a id="prepared-statements" class="anchor" href="#prepared-statements" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Prepared Statements</h1>
+
+<h2>
+<a id="einleitung" class="anchor" href="#einleitung" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Einleitung</h2>
+
+<p>PreparedStatements sind in JDBC eine Möglichkeit SQL-Befehle vorzubereiten um SQL-Injections zu vermeiden. Die Typüberprüfung kann somit schon bei der Hochsprache abgehandelt werden und kann so das DBMS entlasten und Fehler in der Businesslogic behandelbar machen.</p>
+
+<h2>
+<a id="ziele" class="anchor" href="#ziele" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Ziele</h2>
+
+<p>Es ist erwünscht Konfigurationen nicht direkt im Sourcecode zu speichern, daher sollen Property-Files [3] zur Anwendung kommen bzw. CLI-Argumente (Library verwenden) [1,4] verwendet werden. Dabei können natürlich Default-Werte im Code abgelegt werden.
+Das Hauptaugenmerk in diesem Beispiel liegt auf der Verwendung von PreparedStatements [2]. Dabei sollen alle CRUD-Aktionen durchgeführt werden.</p>
+
+<h2>
+<a id="aufgabenstellung" class="anchor" href="#aufgabenstellung" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Aufgabenstellung</h2>
+
+<p>Verwenden Sie Ihren Code aus der Aufgabenstellung "Simple JDBC Connection" um Zugriff auf die Postgresql Datenbank "Schokofabrik" zur Verfügung zu stellen. Dabei sollen die Befehle (CRUD) auf die Datenbank mittels PreparedStatements ausgeführt werden. Verwenden Sie mindestens 10000 Datensätze bei Ihren SQL-Befehlen. Diese können natürlich sinnfrei mittels geeigneten Methoden in Java erstellt werden.</p>
+
+<p>Die Properties sollen dabei folgende Keys beinhalten: host, port, database, user, password</p>
+
+<p>Vergessen Sie nicht auf die Meta-Regeln (Dokumentation, Jar-File, etc.)! Die Testfälle sind dabei zu ignorieren. Diese Aufgabe ist als Gruppenarbeit (2 Personen) zu lösen.
+Quelle</p>
+
+<p>[1] Apache Commons CLI; Online: <a href="http://commons.apache.org/proper/commons-cli/">http://commons.apache.org/proper/commons-cli/</a></p>
+
+<p>[2] Java Tutorial JDBC "Prepared Statements"; Online: <a href="https://docs.oracle.com/javase/tutorial/jdbc/basics/prepared.html">https://docs.oracle.com/javase/tutorial/jdbc/basics/prepared.html</a></p>
+
+<p>[3] Java Tutorial Properties; Online: <a href="https://docs.oracle.com/javase/tutorial/essential/environment/properties.html">https://docs.oracle.com/javase/tutorial/essential/environment/properties.html</a></p>
+
+<p>[4] Overview of Java CLI Libraries; Online: <a href="http://stackoverflow.com/questions/1200054/java-library-for-parsing-command-line-parameters">http://stackoverflow.com/questions/1200054/java-library-for-parsing-command-line-parameters</a></p>
+
+<h2>
+<a id="team" class="anchor" href="#team" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Team</h2>
+
+<p>Zusammenarbeit von Martin Weber und Daniel May</p>
+
+<h2>
+<a id="release" class="anchor" href="#release" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Release</h2>
+
+<p>In der Jar ist das ausführbare Programm, ein Protokoll und eine Dokumentation enthalten</p>
+      </section>
+    </div>
+
+    <!-- FOOTER  -->
+    <div id="footer_wrap" class="outer">
+      <footer class="inner">
+        <p class="copyright">Prepared Statements maintained by <a href="https://github.com/mweber-tgm">mweber-tgm</a></p>
+        <p>Published with <a href="https://pages.github.com">GitHub Pages</a></p>
+      </footer>
+    </div>
+
+    
+
+  </body>
+</html>
