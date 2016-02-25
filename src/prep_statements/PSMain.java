@@ -30,7 +30,7 @@ public class PSMain {
 		dbc.connect();
 		long a, b;
 
-		System.out.println("Inserting data ...");
+		System.out.println("Inserting " + amount + " rows ...");
 		a = System.currentTimeMillis();
 		PSCreate psc = new PSCreate(dbc);
 		psc.createRandomPerson(amount, 100);
@@ -50,14 +50,14 @@ public class PSMain {
 		b = System.currentTimeMillis();
 		System.out.println("Selecting needed " + (b - a) + " ms.");
 
-		System.out.println("Updating data ...");
+		System.out.println("Updating " + amount + " rows ...");
 		a = System.currentTimeMillis();
 		PSUpdate psu = new PSUpdate(dbc);
 		psu.updateAll(amount, 100);
 		b = System.currentTimeMillis();
 		System.out.println("Updating needed " + (b - a) + " ms.");
 
-		System.out.println("Deleting data ...");
+		System.out.println("Deleting " + amount + " rows ...");
 		a = System.currentTimeMillis();
 		PSDelete psd = new PSDelete(dbc);
 		psd.deleteAll(amount, 100);
